@@ -1,0 +1,1 @@
+{"name":"Test brand 1","brandImageLocation":"Brands/Test brand 1/brandImage.jpg","carNames":["Test auto 1","Test auto 2","Test auto 3","Test auto 4"]}
