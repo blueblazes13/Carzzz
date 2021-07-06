@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -46,24 +45,6 @@ public class MainMenuFXMLController {
     private Label lblBrand;
 
     @FXML
-    private Label lblYear;
-
-    @FXML
-    private Label lblCountry;
-
-    @FXML
-    private Label lblFounder;
-
-    @FXML
-    private Label lblCosts;
-
-    @FXML
-    private Label lblMostExpensive;
-
-    @FXML
-    private Label lblBest;
-
-    @FXML
     private MenuItem btnLabels;
     
     @FXML
@@ -71,6 +52,12 @@ public class MainMenuFXMLController {
     
     @FXML
     private Button btnWatchCars;
+    
+    @FXML
+    private Button btnDeleteBrand;
+    
+    @FXML
+    private Button btnEditBrand;
     
     @FXML
     private VBox vbItemField;
@@ -87,57 +74,86 @@ public class MainMenuFXMLController {
     @FXML
     private MenuItem btnAdd;
     
-    @FXML
-    private Menu editMenu;
-
-    private final static Stage secondStage = new Stage();
-    
     private CarzzzModel model;
     
     @FXML
     void initialize() {
-        this.model = CarzzzModel.getModel(this);
         CarzzzModel.setController("MainMenuFXML", this);
+        this.model = CarzzzModel.getModel();
         
-        System.out.println(this);
-        btnAdd.setOnAction(this::addBrand);
-        btnLabels.setOnAction(this::showLabels);
-        btnLabels2.setOnAction(this::showCarLabels);
-        btnSave.setOnAction(this::save);
+        initButtons();
+        update();
+    }
+
+    
+    /**
+     * Initializes all buttons used in the main menu
+     */
+    private void initButtons() {
+        // Opens menu to add a new brand
+        btnAdd.setOnAction((ActionEvent) -> {
+            BrandModel oldBrand = this.model.getSelectedBrand();
+            this.model.deselect();
+            
+            if (!ScreenController.newScreen("EditBrandFXML")) {
+                System.err.println("Not able to open new brand menu.");
+                this.model.select(oldBrand.getName());
+            }
+        });
         
+        // Opens menu to edit the list of brand labels
+        btnLabels.setOnAction((ActionEvent ae) -> {
+            if (!ScreenController.newScreen("LabelsFXML")) {
+                System.err.println("Not able to open labels menu.");
+            }
+        });
+        
+        // Edit brand
+        btnEditBrand.setOnAction((ActionEvent ae) -> {
+            if (this.model.getSelectedBrand() != null) {
+                if (!ScreenController.newScreen("EditBrandFXML")) {
+                    System.err.println("Screen not opened because other screen is already open!");
+                }
+            }
+        });
+        
+        // Delete brand
+        btnDeleteBrand.setOnAction((ActionEvent ae) -> {
+            if (this.model.getSelectedBrand() != null) {
+                this.model.removeBrand(this.model.getSelectedBrand());
+                this.model.deselect();
+                this.model.update();
+            }
+        });
+        
+        // Opens menu to edit the list of car labels
+        btnLabels2.setOnAction((ActionEvent ae) -> {
+            if (!ScreenController.newScreen("CarLabelsFXML")) {
+                System.err.println("Not able to open car labels menu.");
+            }
+        });
+        
+        // Saves the programm
+        btnSave.setOnAction((ActionEvent ae) -> {
+            try {
+                CarzzzModel.getModel().save();
+            } catch (IOException ex) {
+                System.err.println("Brands were not saved!");
+            }
+        });
+        
+        // Opens car menu
         this.btnWatchCars.setOnAction((ActionEvent ae) -> {
             CarsMenuFXMLController controller = (CarsMenuFXMLController)CarzzzModel.getController("CarsMenuFXML");
             if (controller != null) controller.update();
             ScreenController.changeScreen("CarsMenuFXML");
         });
-        
-        update();
-    }
-    
-    private void save(ActionEvent ae) {
-        try {
-            CarzzzModel.getModel().save();
-        } catch (IOException ex) {
-            System.err.println("Brands were not saved!");
-        }
     }
     
     
-    private void showLabels(ActionEvent ae) {
-        boolean opened = ScreenController.newScreen("LabelsFXML");
-    }
-    
-    private void showCarLabels(ActionEvent ae) {
-        ScreenController.newScreen("CarLabelsFXML");
-    }
-    
-    
-    private void addBrand(ActionEvent ae) {
-        this.model.deselect();
-        boolean opened = ScreenController.newScreen("EditBrandFXML");
-    }
-    
-    
+    /**
+     * Updates the main menu
+     */
     public void update() {
         this.vbItemField.getChildren().clear();
         this.vbLabels.getChildren().clear();
@@ -151,30 +167,25 @@ public class MainMenuFXMLController {
             this.vbItemField.getChildren().add(view);
             
             if (brand.isSelected()) {
-                ArrayList<String> labels = this.model.infoLabels.getBrandLabels();
-                HashMap<String, String> data = this.model.infoLabels.getBrandData(brand.getName());
-                int posY = 330;
+                ArrayList<String> labels = CarzzzModel.infoLabels.getBrandLabels();
+                HashMap<String, String> data = CarzzzModel.infoLabels.getBrandData(brand.getName());
                 
                 for (String label: labels) {
                     Label lblTitle = new Label(label);
-                    lblTitle.setLayoutY(posY);
                     lblTitle.setPrefSize(87, 35);
                     lblTitle.setFont(Font.font("TechnicLite", 14));
-                    lblTitle.setTextFill(Color.WHITE);
+                    lblTitle.setTextFill(Color.web("#656565"));
                     lblTitle.setAlignment(Pos.BASELINE_LEFT);
                     
                     Label lblData = new Label(data.get(label));
-                    lblData.setLayoutY(posY);
                     lblData.setPrefSize(200, 35);
                     lblData.setFont(Font.font("TechnicLite", 14));
-                    lblData.setTextFill(Color.WHITE);
+                    lblData.setTextFill(Color.web("#656565"));
                     lblData.setAlignment(Pos.BASELINE_LEFT);
                     
                     HBox row = new HBox(lblTitle, lblData);
                     row.setSpacing(50);
                     this.vbLabels.getChildren().addAll(row);
-                    
-                    posY += 35;
                 }
                 
                 if (brand.getBrandImage() != "") ivImage.setImage(CarzzzModel.stringToImage(brand.getBrandImage()));

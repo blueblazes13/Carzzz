@@ -49,11 +49,21 @@ public class LabelsFXMLController {
     }
     
     
+    /**
+     * Closes the labels menu
+     * 
+     * @param fxml Name of the fxml closed
+     */
     private void close(String fxml) {
+        MainMenuFXMLController mainMenu = (MainMenuFXMLController) CarzzzModel.getController("MainMenuFXML");
+        mainMenu.update();
         ScreenController.closeScreen("LabelsFXML");
     }
     
     
+    /**
+     * Sets all current labels
+     */
     private void setLabels() {
         this.VBoxLabels.getChildren().clear();
         for (String label: CarzzzModel.infoLabels.getBrandLabels()) {
@@ -71,9 +81,14 @@ public class LabelsFXMLController {
         }
     }
     
+    
+    /**
+     * Removes label from the list of labels
+     * 
+     * @param label The label to remove
+     */
     private void removeLabel(String label) {
         CarzzzModel.infoLabels.removeBrandLabel(label);
-        System.out.println("pressed!");
         this.setLabels();
     }
 }

@@ -61,20 +61,15 @@ public class CarzzzModel {
         return CarzzzModel.controllers.get(name);
     }
     
-    public static CarzzzModel getModel(MainMenuFXMLController controller) {
+    public static CarzzzModel getModel() {
         if (CarzzzModel.model == null) {
-            CarzzzModel.model = new CarzzzModel(controller);
+            CarzzzModel.model = new CarzzzModel((MainMenuFXMLController) CarzzzModel.getController("MainMenuFXML"));
             try {
                 CarzzzModel.model.load();
             } catch (FileNotFoundException ex) {
                 System.err.println("Brands were not loaded!");
             }
         }
-        return CarzzzModel.model;
-    }
-    
-    public static CarzzzModel getModel() {
-        if (CarzzzModel.model == null) throw new Error("CarzzzModel has not been initialized yet!");
         return CarzzzModel.model;
     }
     
