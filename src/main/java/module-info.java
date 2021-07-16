@@ -8,4 +8,5 @@ module com.blueblazes13.carzzz {
     requires com.google.gson;
     opens com.blueblazes13.carzzz.model to com.google.gson;
     requires java.desktop;
+    requires java.logging;
 }

@@ -34,23 +34,30 @@ public class CarView extends Region {
     
     private void createItem() {
         // Rectangle
-        Rectangle rect = new Rectangle(200, 200);
+        Rectangle rect = new Rectangle(180, 180);
         rect.setFill(Color.valueOf("#ebebeb"));
+        rect.setArcHeight(10);
+        rect.setArcWidth(10);
         this.getChildren().add(rect);
         
         // Car Image
         ImageView image = new ImageView();
         if (this.model.getCarImage() != null) image.setImage(CarzzzModel.stringToImage(this.model.getCarImage()));
-        image.setFitHeight(150);
-        image.setFitWidth(180);
+        image.setFitHeight(170);
+        image.setFitWidth(160);
         image.setX(10);
         image.setY(10);
+        image.toBack();
         this.getChildren().add(image);
         
         // Label background square
-        Rectangle backRect = new Rectangle(200,42);
+        Rectangle backRect = new Rectangle(180,42);
         backRect.setLayoutY(158);
         backRect.setFill(Color.valueOf("#a6a6a6"));
+        backRect.setOpacity(0.9);
+        backRect.setArcHeight(10);
+        backRect.setArcWidth(10);
+        backRect.toFront();
         this.getChildren().add(backRect);
         
         // Car name

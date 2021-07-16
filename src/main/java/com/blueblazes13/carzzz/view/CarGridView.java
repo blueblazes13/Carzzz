@@ -37,18 +37,19 @@ public class CarGridView extends Region {
         this.cars = this.model.getSelectedBrand().getCars();
         this.getChildren().clear();
         GridPane grid = new GridPane();
-        grid.setPrefSize(714, 725);
+        grid.setPrefSize(730, 725);
+        grid.setVgap(10);
         grid.setAlignment(Pos.TOP_CENTER);
-        grid.setHgap(30);
+        grid.setHgap(10);
         
         if (this.cars == null) {
             this.cars = new ArrayList<>();
             //this.cars.add(new CarModel("Test wagen"));
         }
         int rows = -1;
-        int i = 3;
+        int i = 4;
         for (CarModel car: this.cars) {
-            if (i > 2) {
+            if (i > 3) {
                 rows++;
                 grid.addRow(rows, new CarView(car));
                 i = 1;

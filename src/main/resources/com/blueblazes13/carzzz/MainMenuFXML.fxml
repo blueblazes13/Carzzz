@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="apMainMenu" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to left, #dcdcdc, #dcdcdc, #dcdcdc, #dcdcdc, #dcdcdc, #dbdbde, #d9dae1, #d6d9e3, #ccd9e8, #bfd9ec, #aedbed, #9ddce9);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.blueblazes13.carzzz.MainMenuFXMLController">
    <children>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="-1.0" layoutY="100.0" prefHeight="781.0" prefWidth="746.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass=".viewport { -fx-background-color: transparent;}" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="26.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="-1.0" layoutY="100.0" prefWidth="746.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass=".viewport { -fx-background-color: transparent;}" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="26.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -27,12 +27,12 @@
       <AnchorPane layoutX="745.0" prefHeight="786.0" prefWidth="455.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee, #e8e8ee, #e0e2ee, #d7ddef, #c0d6f3, #a0d2f5, #76cef1, #38cae8);;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ScrollPane fitToWidth="true" layoutX="791.0" layoutY="332.0" prefHeight="381.0" prefWidth="378.0" style="-fx-background-color: transparent; -fx-border-width: 1;" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="320.0">
          <content>
-            <VBox fx:id="vbLabels" prefHeight="410.0" prefWidth="363.0" style="-fx-background-color: EBEBEB; -fx-border-width: 0;" />
+            <VBox fx:id="vbLabels" fillWidth="false" prefHeight="410.0" prefWidth="363.0" style="-fx-background-color: EBEBEB; -fx-border-width: 0;" />
          </content>
       </ScrollPane>
       <ImageView fx:id="ivImage" fitHeight="130.0" fitWidth="130.0" layoutX="791.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="148.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="788.0" layoutY="90.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="390.0" AnchorPane.bottomAnchor="515.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0" />
-      <AnchorPane layoutX="785.0" layoutY="299.0" prefHeight="435.0" prefWidth="390.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2;" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="300.0" />
+      <AnchorPane layoutX="785.0" layoutY="299.0" prefWidth="390.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2;" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="300.0" />
       <Label fx:id="lblBrand" layoutX="791.0" layoutY="100.0" prefHeight="41.0" prefWidth="378.0" text="Carzzz designed by Joey Koster" textFill="#656565" textOverrun="CLIP" underline="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font name="TechnicLite" size="23.0" />
@@ -46,7 +46,7 @@
                   <MenuItem fx:id="btnSave" mnemonicParsing="false" text="Save" />
             </items>
           </Menu>
-          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem fx:id="btnAdd" mnemonicParsing="false" text="Add new brand            " />
                   <MenuItem fx:id="btnLabels" mnemonicParsing="false" text="Brand labels" />
@@ -68,7 +68,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnEditCar" layoutX="1024.0" layoutY="201.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="136.0" style="-fx-background-color: c5c5c5; -fx-border-color: c5c5c5; -fx-border-insets: 5; -fx-background-radius: 0;" text="Bewerken" textFill="#616161" AnchorPane.rightAnchor="40.0">
+      <Button fx:id="btnEditBrand" layoutX="1024.0" layoutY="201.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="136.0" style="-fx-background-color: c5c5c5; -fx-border-color: c5c5c5; -fx-border-insets: 5; -fx-background-radius: 0;" text="Bewerken" textFill="#616161" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="SansSerif" size="12.0" />
          </font>
@@ -76,7 +76,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnDeleteCar" layoutX="1024.0" layoutY="165.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="136.0" style="-fx-background-color: c5c5c5; -fx-border-color: c5c5c5; -fx-border-insets: 5; -fx-background-radius: 0;" text="Verwijderen" textFill="#616161" AnchorPane.rightAnchor="40.0">
+      <Button fx:id="btnDeleteBrand" layoutX="1024.0" layoutY="165.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="136.0" style="-fx-background-color: c5c5c5; -fx-border-color: c5c5c5; -fx-border-insets: 5; -fx-background-radius: 0;" text="Verwijderen" textFill="#616161" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="SansSerif" size="12.0" />
          </font>

@@ -58,7 +58,7 @@
                   <MenuItem fx:id="btnSave" mnemonicParsing="false" text="Save" />
                </items>
             </Menu>
-            <Menu fx:id="editMenu1" mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="Edit">
                <items>
                   <MenuItem fx:id="btnAdd" mnemonicParsing="false" text="Add car" />
                   <MenuItem fx:id="btnLabels" mnemonicParsing="false" text="Brand labels" />

@@ -2,10 +2,13 @@ package com.blueblazes13.carzzz;
 
 import com.blueblazes13.carzzz.model.CarzzzModel;
 import com.blueblazes13.carzzz.view.CarGridView;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -42,9 +45,6 @@ public class CarsMenuFXMLController {
     
     @FXML
     private VBox vbLabels;
-
-    @FXML
-    private Menu editMenu;
     
     @FXML
     private MenuItem btnAdd;
@@ -52,16 +52,23 @@ public class CarsMenuFXMLController {
     @FXML
     private Button btnBack;
     
-    private CarGridView gridView = new CarGridView();
+    private final CarGridView gridView = new CarGridView();
     
     @FXML
     void initialize() {
         CarzzzModel.setController("CarsMenuFXML", this);
-        update();
+        
         this.btnAdd.setOnAction(this::newCar);
         this.btnBack.setOnAction(this::back);
+        this.btnSave.setOnAction(this::save);
+        
+        update();
     }
     
+    
+    /**
+     * Updates the car menu
+     */
     public void update() {
         this.apItemField.getChildren().clear();
         this.gridView.update();
@@ -79,13 +86,13 @@ public class CarsMenuFXMLController {
             Label lblTitle = new Label(label);
             lblTitle.setPrefSize(87, 35);
             lblTitle.setFont(Font.font("TechnicLite", 14));
-            lblTitle.setTextFill(Color.WHITE);
+            lblTitle.setTextFill(Color.web("#656565"));
             lblTitle.setAlignment(Pos.BASELINE_LEFT);
 
             Label lblData = new Label(data.get(label));
             lblData.setPrefSize(200, 35);
             lblData.setFont(Font.font("TechnicLite", 14));
-            lblData.setTextFill(Color.WHITE);
+            lblData.setTextFill(Color.web("#656565"));
             lblData.setAlignment(Pos.BASELINE_LEFT);
 
             HBox row = new HBox(lblTitle, lblData);
@@ -95,18 +102,45 @@ public class CarsMenuFXMLController {
 
     }
     
+    
+    /**
+     * Returns back to the main menu
+     * 
+     * @param ae ActionEvent of buttonClick
+     */
     private void back(ActionEvent ae) {
         CarzzzModel.getModel().deselect();
         ((MainMenuFXMLController)CarzzzModel.getController("MainMenuFXML")).update();
         ScreenController.changeScreen("MainMenuFXML");
     }
     
+    
+    /**
+     * Opens the menu to add a new car to the list of cars
+     * 
+     * @param ae ActionEvent of buttonClick
+     */
     private void newCar(ActionEvent ae) {
         EditCarsFXMLController controller = (EditCarsFXMLController) CarzzzModel.getController("EditCarsFXML");
         if (controller != null) controller.update();
         
         ScreenController.changeScreen("EditCarsFXML");
         this.gridView.update();
+    }
+    
+    
+    /**
+     * Saves program
+     * 
+     * @param ae ActionEvent of buttonClick
+     */
+    private void save(ActionEvent ae) {
+        try {
+            CarzzzModel.getModel().save();
+        } catch (IOException ex) {
+            System.err.println("Not able to save!");
+            ex.printStackTrace();
+        }
     }
     
 
