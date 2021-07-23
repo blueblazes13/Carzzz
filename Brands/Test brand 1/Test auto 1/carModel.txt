@@ -1,1 +1,1 @@
-{"name":"Test auto 1","carImage":"Brands/Test brand 1/Test auto 1/carImage.jpg"}
+{"name":"Test auto 1","carImage":"Brands/Test brand 1/Test auto 1/carImage.jpg","carImages":["Brands/Test brand 1/Test auto 1/Images/server-icon.png","Brands/Test brand 1/Test auto 1/Images/server-icon.png"]}

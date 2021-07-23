@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class EditCarsFXMLController {
@@ -79,7 +81,7 @@ public class EditCarsFXMLController {
         this.ivCarImage.setOnMouseClicked((MouseEvent me) -> {
             File image = CarzzzModel.showImageChooser();
             if (image != null) this.ivCarImage.setImage(CarzzzModel.fileToImage(image));
-            CarzzzModel.getModel().getSelectedBrand().getSelectedCar().setCarImage(image);
+            CarzzzModel.getModel().getSelectedBrand().getSelectedCar().setCarHeadImage(image);
         });
         
         update();
@@ -95,8 +97,9 @@ public class EditCarsFXMLController {
             this.carModel = this.model.getSelectedCar();
         }
         this.tfName.setText(this.carModel.getName());
+        this.setImages();
         
-        if (this.carModel.getCarImage()== null) {
+        if (this.carModel.getCarImage() == null) {
             this.ivCarImage.setImage(CarzzzModel.stringToImage("clickToAdd.png"));
         } else {
             this.ivCarImage.setImage(CarzzzModel.stringToImage(this.carModel.getCarImage()));
@@ -152,6 +155,57 @@ public class EditCarsFXMLController {
             row.setSpacing(30);
             this.vbLabels.getChildren().add(row);
         }
+    }
+    
+    
+    private void setImages() {
+        this.hbItemField.getChildren().clear();
+        ArrayList<String> images = carModel.getImages();
+        
+        for (String image: images) {
+            Image im = CarzzzModel.fileToImage(new File(image));
+            
+            Rectangle background = new Rectangle(220, 220);
+            background.setArcWidth(20);
+            background.setArcHeight(20);
+            background.setFill(Color.TRANSPARENT);
+            background.setStrokeWidth(2);
+            background.setStroke(Color.WHITE);
+            
+            ImageView iv = new ImageView();
+            iv.setPreserveRatio(true);
+            iv.setFitHeight(200);
+            iv.setFitWidth(200);
+            iv.setCursor(Cursor.HAND);
+            iv.setLayoutX(10);
+            iv.setLayoutY(10);
+            iv.setImage(im);
+            iv.setOnMouseClicked((MouseEvent me) -> {
+            this.carModel.removeImage(image);
+            setImages();
+        });
+            
+            AnchorPane item = new AnchorPane(background, iv);
+            item.setPrefSize(220, 220);
+            item.setMaxSize(220, 220);
+            this.hbItemField.getChildren().add(item);
+        }
+        
+        ImageView addView = new ImageView();
+        addView.setImage(CarzzzModel.fileToImage(new File("clickToAdd.png")));
+        addView.setFitHeight(200);
+        addView.setFitWidth(200);
+        
+        AnchorPane back = new AnchorPane(addView);
+        back.setPrefSize(200, 200);
+        back.setMaxSize(200, 200);
+        back.setOnMouseClicked((MouseEvent me) -> {
+            File fileImage = CarzzzModel.showImageChooser();
+            if (fileImage != null) this.carModel.addImage(fileImage);
+            setImages();
+        });
+        
+        this.hbItemField.getChildren().add(back);
     }
 
     

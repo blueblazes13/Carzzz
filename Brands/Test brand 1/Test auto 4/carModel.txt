@@ -1,1 +1,1 @@
-{"name":"Test auto 4"}
+{"name":"Test auto 4","carImages":[]}

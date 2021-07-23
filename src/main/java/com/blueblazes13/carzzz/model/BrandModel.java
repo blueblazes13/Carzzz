@@ -153,16 +153,8 @@ public class BrandModel {
         this.cars.forEach((CarModel model) -> {names.add(model.getName());});
         this.carNames = names.toArray();
         
-        
         for (CarModel model: this.cars) {
-            File file = new File("Brands/" + this.getName() + "/" + model.getName());
-            file.mkdirs();
-            
-            FileWriter dataWriter = new FileWriter("Brands/" + this.getName() + "/" + model.getName() + "/carModel.txt");
-            Gson gsonConverter = new Gson();
-            String jsonCarModels = gsonConverter.toJson(model);
-            dataWriter.write(jsonCarModels);
-            dataWriter.close();
+            model.save();
         }
     }
     
@@ -180,6 +172,8 @@ public class BrandModel {
             FileReader dataReader = new FileReader("Brands/" + this.getName() + "/" + (String)name + "/carModel.txt");
             Gson gsonConverter = new Gson();
             CarModel carModel = gsonConverter.fromJson(dataReader, CarModel.class);
+            carModel.checkImages();
+            carModel.setModel(this);
             this.cars.add(carModel);
         }
     }
