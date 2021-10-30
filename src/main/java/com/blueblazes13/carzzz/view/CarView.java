@@ -48,6 +48,7 @@ public class CarView extends Region {
         image.setX(10);
         image.setY(10);
         image.toBack();
+        image.setPreserveRatio(true);
         this.getChildren().add(image);
         
         // Label background square

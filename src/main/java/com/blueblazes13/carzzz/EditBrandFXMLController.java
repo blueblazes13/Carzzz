@@ -3,6 +3,7 @@ package com.blueblazes13.carzzz;
 import com.blueblazes13.carzzz.model.BrandModel;
 import com.blueblazes13.carzzz.model.CarzzzModel;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -51,6 +51,11 @@ public class EditBrandFXMLController {
         this.brandModel = this.model.getSelectedBrand(); // checken!!!!
         if (this.brandModel == null) this.brandModel = new BrandModel("No name set");
         this.model.setBrand(this.brandModel); // Voegt de brand toe als deze er nog niet in stond.
+        try {
+            CarzzzModel.getModel().save();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         model.select(this.brandModel.getName());
         
         if (this.brandModel.getBrandImage() != null) {

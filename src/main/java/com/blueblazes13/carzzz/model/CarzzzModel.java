@@ -68,6 +68,7 @@ public class CarzzzModel {
                 CarzzzModel.model.load();
             } catch (FileNotFoundException ex) {
                 System.err.println("Brands were not loaded!");
+                ex.printStackTrace();
             }
         }
         return CarzzzModel.model;

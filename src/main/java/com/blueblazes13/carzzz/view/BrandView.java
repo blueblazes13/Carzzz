@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -38,6 +39,8 @@ public class BrandView extends Region {
         // Background rectangle
         Rectangle background = new Rectangle(714, 140);
         background.setFill(Color.valueOf("#a1a1a1"));
+        background.setArcHeight(20);
+        background.setArcWidth(20);
         this.getChildren().add(background);
         
         // Brand Image
@@ -68,6 +71,7 @@ public class BrandView extends Region {
         notes.setPromptText("Notes");
         notes.setStyle("-fx-background-color: White ; -fx-prompt-text-fill: WHITE; -fx-control-inner-background: #c2c2c2;");
         notes.setWrapText(true);
+        notes.setText(this.model.getNote());
         this.getChildren().add(notes);
         
         // Edit button
@@ -117,6 +121,12 @@ public class BrandView extends Region {
             this.carzzzModel.deselect();
             this.carzzzModel.removeBrand(this.model);
             this.carzzzModel.update();
+        });
+        
+        // Set note when text changes
+        notes.textProperty().addListener((observable, oldValue, newValue) -> {
+            //this.carzzzModel.infoLabels.setBrandNote(this.model.getName(), newValue);
+            this.model.setNote(newValue);
         });
     }
         

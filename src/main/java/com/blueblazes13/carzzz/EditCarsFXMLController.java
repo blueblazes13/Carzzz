@@ -13,6 +13,7 @@ import com.blueblazes13.carzzz.model.CarModel;
 import com.blueblazes13.carzzz.model.CarzzzModel;
 import com.blueblazes13.carzzz.model.InfoLabels;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.ActionEvent;
@@ -82,6 +83,14 @@ public class EditCarsFXMLController {
             File image = CarzzzModel.showImageChooser();
             if (image != null) this.ivCarImage.setImage(CarzzzModel.fileToImage(image));
             CarzzzModel.getModel().getSelectedBrand().getSelectedCar().setCarHeadImage(image);
+        });
+        
+        btnSave.setOnAction((ActionEvent ae) -> {
+            try {
+                CarzzzModel.getModel().save();
+            } catch (IOException ex) {
+                System.err.println("Brands were not saved!");
+            }
         });
         
         update();

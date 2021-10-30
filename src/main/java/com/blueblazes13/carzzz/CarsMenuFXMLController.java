@@ -74,6 +74,14 @@ public class CarsMenuFXMLController {
         this.gridView.update();
         this.apItemField.getChildren().add(this.gridView);
         
+        btnSave.setOnAction((ActionEvent ae) -> {
+            try {
+                CarzzzModel.getModel().save();
+            } catch (IOException ex) {
+                System.err.println("Brands were not saved!");
+            }
+        });
+        
         CarzzzModel model = CarzzzModel.getModel();
         
         this.ivBrandImage.setImage(CarzzzModel.stringToImage(model.getSelectedBrand().getBrandImage()));

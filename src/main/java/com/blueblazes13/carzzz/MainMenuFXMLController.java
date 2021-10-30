@@ -178,7 +178,9 @@ public class MainMenuFXMLController {
                     lblTitle.setAlignment(Pos.BASELINE_LEFT);
                     
                     Label lblData = new Label(data.get(label));
-                    lblData.setPrefSize(200, 35);
+                    lblData.setMinHeight(35);
+                    lblData.setPrefWidth(200);
+                    lblData.setWrapText(true);
                     lblData.setFont(Font.font("TechnicLite", 14));
                     lblData.setTextFill(Color.web("#656565"));
                     lblData.setAlignment(Pos.BASELINE_LEFT);
@@ -190,6 +192,7 @@ public class MainMenuFXMLController {
                 
                 if (brand.getBrandImage() != "") ivImage.setImage(CarzzzModel.stringToImage(brand.getBrandImage()));
                 lblBrand.setText(brand.getName());
+                
             }
         }
     }

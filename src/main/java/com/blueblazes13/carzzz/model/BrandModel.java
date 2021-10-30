@@ -7,20 +7,15 @@ package com.blueblazes13.carzzz.model;
 
 
 import com.google.gson.Gson;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -31,6 +26,7 @@ public class BrandModel {
     // Short info about the brand
     private String name;
     private String brandImageLocation;
+    private String note;
     
     // All info of the brand
     public transient ArrayList<CarModel> cars;
@@ -42,8 +38,14 @@ public class BrandModel {
         this.name = name;
         this.isSelected = false;
         this.cars = new ArrayList<>();
+        this.note = "";
     }
 
+    
+    public String getNote() {
+        return this.note;
+    }
+    
     /**
      * @return the name
      */
@@ -121,6 +123,12 @@ public class BrandModel {
         return isSelected;
     }
 
+    
+    public void setNote(String note) {
+        this.note = note;
+    }
+    
+    
     /**
      * @param isSelected the isSelected to set
      */
@@ -174,6 +182,7 @@ public class BrandModel {
             CarModel carModel = gsonConverter.fromJson(dataReader, CarModel.class);
             carModel.checkImages();
             carModel.setModel(this);
+            //this.note = CarzzzModel.getModel().infoLabels.getBrandNotes(this.name);
             this.cars.add(carModel);
         }
     }

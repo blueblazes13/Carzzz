@@ -141,7 +141,6 @@ public class CarModel {
         if (this.images != null) this.carImages = images.toArray();
         
         File file = new File("Brands/" + this.model.getName() + "/" + this.getName());
-        System.out.println("Brands/" + this.model.getName() + "/" + this.getName());
         file.mkdirs();
 
         FileWriter dataWriter = new FileWriter("Brands/" + this.model.getName() + "/" + this.getName() + "/carModel.txt");

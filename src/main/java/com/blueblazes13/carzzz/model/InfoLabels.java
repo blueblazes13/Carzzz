@@ -22,13 +22,14 @@ public class InfoLabels {
     
     private HashMap<String, HashMap<String, String>> brandData;
     private HashMap<String, HashMap<String, String>> carData;
+    private HashMap<String, String> notes;
     
     public InfoLabels() {
         this.brandLabels = new ArrayList<>();
         this.carLabels = new ArrayList<>();
         this.brandData = new HashMap<>();
         this.carData = new HashMap<>();
-        
+        this.notes = new HashMap<>();
     }
     
     
@@ -51,6 +52,19 @@ public class InfoLabels {
      */
     public ArrayList<String> getCarLabels() {
         return this.carLabels;
+    }
+    
+    
+    /**
+     * Gets the list of brandNotes.
+     * 
+     * @return ArrayList of notes.
+     */
+    public String getBrandNotes(String brand) {
+        if (this.notes.containsKey(brand)) {
+            return this.notes.get(this);
+        }
+        return null;
     }
     
     
@@ -152,6 +166,14 @@ public class InfoLabels {
     }
     
     
+    public void setBrandNote(String brand, String note) {
+        if (this.brandData.containsKey(brand)) {
+            notes.put(brand, note);
+            System.out.println("Gelukt!");
+        }
+    }
+    
+    
     public void removeBrandLabel(String label) {
         if (!this.brandLabels.contains(label)) return;
         
@@ -223,6 +245,7 @@ public class InfoLabels {
         this.carLabels = model.carLabels;
         this.carData = model.carData;
         this.brandData = model.brandData;
+        this.notes = model.notes;
     }
     
 }
